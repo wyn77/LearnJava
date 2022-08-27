@@ -1,7 +1,6 @@
-package com.example.cleancode.lamdba;
+package com.example.cleancode.lambda;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -9,7 +8,7 @@ import java.util.List;
  * @author : wyn
  * @date : 2022-08-25 23:51
  **/
-public class LamdbaDemo {
+public class LambdaDemo {
     public static void main(String[] args) {
         List<String> strings = new ArrayList<>();
         strings.add("111");
