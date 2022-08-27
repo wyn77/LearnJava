@@ -2,6 +2,7 @@ package com.example.cleancode.enum_annotation;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.DoubleBinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -10,15 +11,17 @@ import java.util.stream.Stream;
  * @date : 2022-08-23 22:25
  **/
 public enum Operation {
-    PLUS("+") { public double apply(double x, double y) { return x + y; } },
-    MINUS("-") { public double apply(double x, double y) { return x - y; } },
-    TIMES("*") { public double apply(double x, double y) { return x * y; } },
-    DIVIDE("/") { public double apply(double x, double y) { return x / y; } };
+    PLUS("+", (x,y) -> x + y),
+    MINUS("-", (x,y) -> x - y),
+    TIMES("*", (x,y) -> x * y) ,
+    DIVIDE("/", (x,y) -> x / y);
 
     private final String symbol;
+    private final DoubleBinaryOperator op;
 
-    Operation(String symbol) {
+    Operation(String symbol, DoubleBinaryOperator op) {
         this.symbol = symbol;
+        this.op = op;
     }
 
     @Override
@@ -33,7 +36,9 @@ public enum Operation {
         return Optional.ofNullable(stringToEnum.get(symbol));
     }
 
-    public abstract double apply(double x, double y);
+    public double apply(double x, double y) {
+        return op.applyAsDouble(x, y);
+    };
 
     public static void main(String[] args) {
         double x = 2;
